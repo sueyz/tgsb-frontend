@@ -21,7 +21,7 @@ import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {useHistoryState} from '../../../layout/MasterLayout'
 
-const API_URL = process.env.APP_URL
+const API_URL = process.env.REACT_APP_APP_URL
 const QUOTATIONS_URL = `${API_URL}/quotations/register`
 const GET_COMPANIES_URL = `${API_URL}/company/?`
 const CHECK_INVOICE_URL = `${API_URL}/quotations/check/?`

@@ -50,7 +50,7 @@ const profileDetailsSchema = Yup.object().shape({
   // note: Yup.string().required('Time zone is required'),
   // currency: Yup.string().required('Currency is required'),
 })
-const API_URL = process.env.APP_URL
+const API_URL = process.env.REACT_APP_APP_URL
 const GET_COMPANIES_URL = `${API_URL}/company/?`
 const PDF_UPLOAD_URL = `${API_URL}/quotations/pdf`
 

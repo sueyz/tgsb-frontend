@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../_metronic/helpers'
 import {Quotations, QuotationsQueryResponse} from './_models'
 
-const API_URL = process.env.APP_URL
+const API_URL = process.env.REACT_APP_APP_URL
 const QUOTATIONS_URL = `${API_URL}/quotations`
 const GET_QUOTATIONS_URL = `${API_URL}/quotations/query`
 const ATTACHMENTS_UPLOAD_URL = `${API_URL}/quotations/upload`
