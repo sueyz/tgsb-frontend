@@ -23,6 +23,7 @@ const CustomRow: FC<Props> = ({row}) => {
       .get(`${COMPANY_URL}/${id}`)
       .then((response: AxiosResponse<Response<Companies>>) => response.data)
       .then((response: Response<Companies>) => {
+
         setLoading(false)
         return response.data
       })

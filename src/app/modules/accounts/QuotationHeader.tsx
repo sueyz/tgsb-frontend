@@ -131,6 +131,10 @@ const QuotationHeader: React.FC = () => {
             closeModal()
 
             location.state.original = values // ni hantar alik atas je
+
+            navigate('/quotations/overview', {
+              state: {original: location.state.original, company_info: location.state.company_info},
+            })
           })
           .catch((e) => {
             console.log(e)
