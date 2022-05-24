@@ -1,7 +1,6 @@
 {
   "name": "tgsb",
   "version": "1.0.0",
-  "proxy": "http://localhost:5000",
   "license": "MIT",
   "dependencies": {
     "@formatjs/intl-pluralrules": "^4.3.3",
