@@ -82,7 +82,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-app-rewired start"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build"
   },
   "resolutions": {
     "postcss": "^8.4.12",
