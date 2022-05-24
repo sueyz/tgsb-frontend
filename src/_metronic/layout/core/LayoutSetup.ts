@@ -184,7 +184,6 @@ export class LayoutSetup {
   }
 
   private static initContent(config: IContent): void {
-    // LayoutSetup.classes.contentContainer.push('container-fluid')
     LayoutSetup.classes.contentContainer.push(
       config.width === 'fluid' ? 'container-fluid' : 'container'
     )
