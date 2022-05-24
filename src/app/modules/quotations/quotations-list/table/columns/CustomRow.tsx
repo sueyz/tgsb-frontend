@@ -7,7 +7,7 @@ import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../../_metronic/helpers'
 import {Companies} from '../../../../companies/companies-list/core/_models'
 
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACTAPP_URL_APP_API_URL
 const COMPANY_URL = `${API_URL}/company`
 
 type Props = {

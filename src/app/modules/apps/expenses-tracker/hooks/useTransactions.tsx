@@ -19,7 +19,7 @@ interface Transaction {
   // claim_date: string;
 }
 
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.APP_URL
 // const TRANSACTION_URL = `${API_URL}/expenses`
 const TRANSACTION_URL = `${API_URL}/expenses/transactions`
 

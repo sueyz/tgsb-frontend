@@ -3,7 +3,7 @@ import {UserModel} from '../models/UserModel'
 
 //like authservice.js
 
-const API_URL = `${process.env.REACT_APP_API_URL}/user`
+const API_URL = `${process.env.APP_URL}/user`
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`
 export const LOGIN_URL = `${API_URL}/login`

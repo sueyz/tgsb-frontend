@@ -46,7 +46,7 @@ export default function setupAxios(axios: any, store: any) {
             axios.interceptors.response.eject(interceptor)
 
             try {
-              const rs = await axios.post(`${process.env.REACT_APP_API_URL}/user/refresh_token`, {
+              const rs = await axios.post(`${process.env.APP_URL}/user/refresh_token`, {
                 refreshToken: refreshToken,
               })
 
