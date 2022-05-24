@@ -34,7 +34,7 @@ const DashboardLoading = () => {
 const DashboardPage: FC = () => {
   const navigate = useNavigate()
 
-  const API_URL = process.env.REACT_APP_THEME_API_URL
+  const API_URL = process.env.REACT_APP_API_URL
   const COMPANY_URL = `${API_URL}/company`
 
   const getCompaniesById = (id: ID): Promise<Companies | undefined> => {

@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../_metronic/helpers'
 import {Companies, CompaniesQueryResponse} from './_models'
 
-const API_URL = process.env.REACT_APP_THEME_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 const COMPANY_URL = `${API_URL}/company`
 const COMPANY_IMAGE_UPLOAD_URL = `${API_URL}/company/upload`
 const GET_COMPANIES_URL = `${API_URL}/company/query`
@@ -55,4 +55,12 @@ const deleteSelectedCompanies = (companyIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getCompanies, deleteCompanies, deleteSelectedCompanies, getCompaniesById, createCompanies, updateCompanies, uploadImage}
+export {
+  getCompanies,
+  deleteCompanies,
+  deleteSelectedCompanies,
+  getCompaniesById,
+  createCompanies,
+  updateCompanies,
+  uploadImage,
+}
