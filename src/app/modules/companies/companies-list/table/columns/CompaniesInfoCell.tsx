@@ -17,14 +17,11 @@ const CompaniesInfoCell: FC<Props> = ({ company }) => {
 
   useEffect(() => {
     getImage(company.avatar ? company.avatar : '').then((res : any) => {
-      console.log(res)
-      // var imageUrl = URL.createObjectURL(res.data);
-
       setSrc(res);
 
     })  
     
-}, [setSrc])
+}, [company.avatar])
 
 
   return (
