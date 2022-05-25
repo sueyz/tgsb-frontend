@@ -5,6 +5,7 @@ import {Companies, CompaniesQueryResponse} from './_models'
 const API_URL = process.env.REACT_APP_APP_URL
 const COMPANY_URL = `${API_URL}/company`
 const COMPANY_IMAGE_UPLOAD_URL = `${API_URL}/company/upload`
+const COMPANY_IMAGE_FETCH_URL = `${API_URL}/company/fetch`
 const GET_COMPANIES_URL = `${API_URL}/company/query`
 
 const getCompanies = (query: string): Promise<CompaniesQueryResponse> => {
@@ -39,6 +40,17 @@ const uploadImage = (file: FormData) => {
     })
 }
 
+const getImage = (string: String) => {
+  return axios
+    .get(`${COMPANY_IMAGE_FETCH_URL}/${string}`, {responseType: 'blob'})  
+    .then((response) => {
+      console.log(response)
+      
+      var imageUrl = URL.createObjectURL(response.data)
+      return imageUrl
+    })
+}
+
 const updateCompanies = (company: Companies): Promise<Companies | undefined> => {
   return axios
     .put(`${COMPANY_URL}/${company.id}`, company)
@@ -63,4 +75,5 @@ export {
   createCompanies,
   updateCompanies,
   uploadImage,
+  getImage
 }

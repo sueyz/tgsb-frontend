@@ -1,16 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { toAbsoluteUrl } from '../../../../../../_metronic/helpers'
 import { Companies } from '../../core/_models'
 import cn from "classnames";
 import { CompaniesActionsCell } from './CompaniesActionsCell'
+import { getImage } from '../../core/_requests';
 
 type Props = {
   company: Companies
 }
 
 const CompaniesInfoCell: FC<Props> = ({ company }) => {
+
+  const [src, setSrc] = useState('');
+
+  useEffect(() => {
+    getImage(company.avatar ? company.avatar : '').then((res : any) => {
+      console.log(res)
+      // var imageUrl = URL.createObjectURL(res.data);
+
+      setSrc(res);
+
+    })  
+    
+}, [setSrc])
+
+
   return (
     <div className='d-flex align-items-center'>
       {/* begin:: Avatar */}
@@ -26,14 +42,14 @@ const CompaniesInfoCell: FC<Props> = ({ company }) => {
                   {company.avatar ? (
                     <div className='symbol-label'>
                       <img
-                        src={toAbsoluteUrl(`/media/${company.avatar}`)}
+                        src={src}
                         className='h-100 w-100'
                         style={{ objectFit: 'cover' }}
                       />
                     </div>
                   ) : (
                     <div className='symbol-label'>
-                      <img src={toAbsoluteUrl('/media/avatars/blank.png')} className='w-100' />
+                      <img src={toAbsoluteUrl('/media/svg/avatars/blank.png')} className='w-100' />
                     </div>
                   )}
                 </a>
