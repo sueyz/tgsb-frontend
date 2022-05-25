@@ -84,7 +84,7 @@ const QuotationHeader: React.FC = () => {
             : await markSelectedItems.mutateAsync()
         }
         navigate('/quotations/overview', {
-          state: {original: location.state.original, company_info: location.state.company_info},
+          state: {original: location.state.original},
         })
 
         return
@@ -133,7 +133,7 @@ const QuotationHeader: React.FC = () => {
             location.state.original = values // ni hantar alik atas je
 
             navigate('/quotations/overview', {
-              state: {original: location.state.original, company_info: location.state.company_info},
+              state: {original: location.state.original},
             })
           })
           .catch((e) => {
@@ -364,8 +364,7 @@ const QuotationHeader: React.FC = () => {
                 onClick={() => {
                   navigate('/quotations/overview', {
                     state: {
-                      original: location.state.original,
-                      company_info: location.state.company_info,
+                      original: location.state.original
                     },
                   })
                 }}
@@ -384,8 +383,7 @@ const QuotationHeader: React.FC = () => {
                   onClick={() => {
                     navigate('/quotations/settings', {
                       state: {
-                        original: location.state.original,
-                        company_info: location.state.company_info,
+                        original: location.state.original
                       },
                     })
                   }}

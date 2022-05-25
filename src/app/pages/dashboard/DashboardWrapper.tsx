@@ -37,19 +37,19 @@ const DashboardPage: FC = () => {
   const API_URL = process.env.REACT_APP_APP_URL
   const COMPANY_URL = `${API_URL}/company`
 
-  const getCompaniesById = (id: ID): Promise<Companies | undefined> => {
-    return axios
-      .get(`${COMPANY_URL}/${id}`)
-      .then((response: AxiosResponse<Response<Companies>>) => response.data)
-      .then((response: Response<Companies>) => {
-        setLoading(false)
-        return response.data
-      })
-  }
+  // const getCompaniesById = (id: ID): Promise<Companies | undefined> => {
+  //   return axios
+  //     .get(`${COMPANY_URL}/${id}`)
+  //     .then((response: AxiosResponse<Response<Companies>>) => response.data)
+  //     .then((response: Response<Companies>) => {
+  //       setLoading(false)
+  //       return response.data
+  //     })
+  // }
 
   const [quote, setQuote] = useState<Quotations[] | undefined>([])
   const [loading, setLoading] = useState(false)
-  const [company, setCompany] = useState<Array<Companies>>([])
+  // const [company, setCompany] = useState<Array<Companies>>([])
   const [isOpen, setIsOpen] = useState(false)
   const [file, setFile] = useState<File[]>()
   const {history} = useHistoryState()
@@ -83,17 +83,17 @@ const DashboardPage: FC = () => {
       var test = await getCurrent.mutateAsync()
       setQuote(test.data)
 
-      var array: Array<Companies> = []
+      // var array: Array<Companies> = []
 
-      if (test.data !== undefined) {
-        for (const element of test.data) {
-          await getCompaniesById(element.company).then((response: any) => {
-            array.push(response)
-          })
-        }
-      }
+      // if (test.data !== undefined) {
+      //   for (const element of test.data) {
+      //     await getCompaniesById(element.company).then((response: any) => {
+      //       array.push(response)
+      //     })
+      //   }
+      // }
 
-      setCompany(array)
+      // setCompany(array)
     }
     getAll()
   }, [history])
@@ -197,7 +197,7 @@ const DashboardPage: FC = () => {
                 </div>
 
                 <div className='card-body'>
-                  <h5 className='card-title'>{company[i] && company[i].name}'s</h5>
+                  <h5 className='card-title'>{element.companyName}'s</h5>
                   <p className='card-text'>{element.name}</p>
                 </div>
 
@@ -258,7 +258,7 @@ const DashboardPage: FC = () => {
                     className='btn btn-primary'
                     onClick={() =>
                       navigate('/quotations/overview', {
-                        state: {original: element, company_info: company && company},
+                        state: {original: element},
                       })
                     }
                   >

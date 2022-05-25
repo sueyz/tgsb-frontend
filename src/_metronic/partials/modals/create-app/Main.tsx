@@ -512,6 +512,7 @@ const Main: FC = () => {
                               {refCompany.current ? (
                                 refCompany.current.length > 0 ? (
                                   refCompany.current.map((company: Companies, i: number) => {
+                                    formikProps.values.companyName = company.name
                                     return (
                                       <label
                                         key={i}

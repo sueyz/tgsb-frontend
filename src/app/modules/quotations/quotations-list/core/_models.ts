@@ -2,6 +2,7 @@ import { ID, Response } from '../../../../../_metronic/helpers'
 export type Quotations = {
   id?: ID
   company?: ID,
+  companyName?: String,
   type?: string,
   name?: string,
   invoiceNo?: string,
@@ -33,6 +34,7 @@ export type QuotationsQueryResponse = Response<Array<Quotations>>
 
 export const initialQuotations: Quotations = {
   type: 'Regular',
+  companyName: '',
   name: '',
   invoiceNo: '',
   address1: '',

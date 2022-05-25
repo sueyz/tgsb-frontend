@@ -5,6 +5,7 @@ export interface IProfileDetails {
   // name: string
   id?: ID
   company?: ID,
+  companyName?: String,
   type?: string,
   invoiceNo?: string,
   name?: string,

@@ -67,7 +67,7 @@ export function Overview() {
         location.state.original = response // nak antar  ni ke overview
 
         navigate('/quotations/overview', {
-          state: {original: location.state.original, company_info: location.state.company_info},
+          state: {original: location.state.original},
         })
 
         // setHistory(60)
@@ -114,8 +114,7 @@ export function Overview() {
               onClick={() => {
                 navigate('/quotations/settings', {
                   state: {
-                    original: location.state.original,
-                    company_info: location.state.company_info,
+                    original: location.state.original
                   },
                 })
               }}
@@ -156,7 +155,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Company In Charge</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bolder fs-6'>{location.state.company_info.name}</span>
+              <span className='fw-bolder fs-6'>{location.state.original.companyName}</span>
             </div>
           </div>
 

@@ -18,16 +18,16 @@ const CustomRow: FC<Props> = ({row}) => {
   const history = useNavigate()
   const [loading, setLoading] = useState(false)
 
-  const getCompaniesById = (id: ID): Promise<Companies | undefined> => {
-    return axios
-      .get(`${COMPANY_URL}/${id}`)
-      .then((response: AxiosResponse<Response<Companies>>) => response.data)
-      .then((response: Response<Companies>) => {
+  // const getCompaniesById = (id: ID): Promise<Companies | undefined> => {
+  //   return axios
+  //     .get(`${COMPANY_URL}/${id}`)
+  //     .then((response: AxiosResponse<Response<Companies>>) => response.data)
+  //     .then((response: Response<Companies>) => {
 
-        setLoading(false)
-        return response.data
-      })
-  }
+  //       setLoading(false)
+  //       return response.data
+  //     })
+  // }
 
   return (
     <tr
@@ -35,9 +35,9 @@ const CustomRow: FC<Props> = ({row}) => {
       onClick={async () => {
         setLoading(true)
 
-        getCompaniesById(row.original.company).then((response: any) =>
-          history('/quotations/overview', {state: {original: row.original, company_info: response}})
-        )
+        // getCompaniesById(row.original.company).then((response: any) =>
+          history('/quotations/overview', {state: {original: row.original}})
+        // )
       }}
     >
       {row.cells.map((cell) => {

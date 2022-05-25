@@ -38,14 +38,6 @@ const profileDetailsSchema = Yup.object().shape({
       })
     )
     .min(1, 'Payment Term'),
-  projectSchedule: Yup.array()
-    .of(
-      Yup.object({
-        desc: Yup.string().required().label('Description'),
-        week: Yup.string().required().label('Week'),
-      })
-    )
-    .min(1, 'Project schedule'),
   balancePaid: Yup.number().required('Balance Paid is required'),
   // note: Yup.string().required('Time zone is required'),
   // currency: Yup.string().required('Currency is required'),
@@ -83,6 +75,7 @@ const QuotationDetails: React.FC = () => {
     name: location.state.original.name,
     type: location.state.original.type,
     company: location.state.original.company,
+    companyName: location.state.original.companyName,
     address1: location.state.original.address1,
     address2: location.state.original.address2,
     address3: location.state.original.address3,
@@ -200,22 +193,27 @@ const QuotationDetails: React.FC = () => {
             newArray?.push(`quotations/${result2}`)
             values.attachments?.push(`quotations/${result2}`)
 
+            if (refCompany.current !== undefined) {
+              let obj = refCompany.current.find(
+                (o: any) => o.id === values.company
+                )
+
+                if(obj?.id === undefined){
+                  obj = refCompany.current[0]
+                  values.company = obj.id
+                }
+
+              values.companyName = obj?.name
+            }
+
             await updateQuotation(values).then((response) => {
               values.attachments = newArray
               location.state.original = values // ni hantar alik atas je
-
-              if (refCompany.current !== undefined) {
-                let obj = refCompany.current.find(
-                  (o: any) => o.id === location.state.original.company
-                )
-
-                location.state.company_info = obj
-              }
+           
 
               navigate('/quotations/overview', {
                 state: {
-                  original: location.state.original,
-                  company_info: location.state.company_info,
+                  original: location.state.original
                 },
               })
             })
