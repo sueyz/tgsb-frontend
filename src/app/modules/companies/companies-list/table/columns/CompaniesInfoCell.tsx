@@ -17,7 +17,6 @@ const CompaniesInfoCell: FC<Props> = ({ company }) => {
 
   useEffect(() => {
     getImage(company.avatar ? company.avatar : '').then((res : any) => {
-      console.log(res)
       setSrc(res);
 
     })  

@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
-import {KTSVG, toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {useLocation} from 'react-router'
-import {shallowEqual, useSelector} from 'react-redux'
-import {RootState} from '../../../../setup'
-import {Document, Page} from 'react-pdf/dist/esm/entry.webpack'
-import {SizeMe} from 'react-sizeme'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { KTSVG, toAbsoluteUrl } from '../../../../_metronic/helpers'
+import { useLocation } from 'react-router'
+import { shallowEqual, useSelector } from 'react-redux'
+import { RootState } from '../../../../setup'
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { SizeMe } from 'react-sizeme'
 
-import {FileIcon, defaultStyles} from 'react-file-icon'
-import {useMutation} from 'react-query'
-import {deleteQuotation, deletePdf} from '../../quotations/quotations-list/core/_requests'
-import {confirm} from 'react-confirm-box'
-import {useNavigate} from 'react-router'
-import {ToastContainer, toast} from 'react-toastify'
+import { FileIcon, defaultStyles } from 'react-file-icon'
+import { useMutation } from 'react-query'
+import { deleteQuotation, deletePdf, getAttachment } from '../../quotations/quotations-list/core/_requests'
+import { confirm } from 'react-confirm-box'
+import { useNavigate } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {PDFViewer} from '@react-pdf/renderer'
-import {MyDocument} from '../../../../_metronic/partials'
+import { PDFViewer } from '@react-pdf/renderer'
+import { MyDocument } from '../../../../_metronic/partials'
 
 export function Overview() {
-  const isAdmin = useSelector<RootState>(({auth}) => auth.user?.role, shallowEqual)
+  const isAdmin = useSelector<RootState>(({ auth }) => auth.user?.role, shallowEqual)
 
   const location: any = useLocation()
   const navigate = useNavigate()
@@ -27,7 +27,7 @@ export function Overview() {
   const [numPages, setNumPages] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
 
-  function onDocumentLoadSuccess({numPages}: any) {
+  function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages)
     setPageNumber(1)
   }
@@ -55,7 +55,7 @@ export function Overview() {
   })
 
   const deletePdfItem = useMutation(
-    (element: {path: any; attachments: any}) => deletePdf(location.state.original.id, element),
+    (element: { path: any; attachments: any }) => deletePdf(location.state.original.id, element),
     {
       // 💡 response of the mutation is passed to onSuccess
 
@@ -67,7 +67,7 @@ export function Overview() {
         location.state.original = response // nak antar  ni ke overview
 
         navigate('/quotations/overview', {
-          state: {original: location.state.original},
+          state: { original: location.state.original },
         })
 
         // setHistory(60)
@@ -90,7 +90,7 @@ export function Overview() {
           </div>
           {location.state.original.lock === false ? (
             <button
-              style={{margin: 'auto', marginRight: 20, padding: 7}}
+              style={{ margin: 'auto', marginRight: 20, padding: 7 }}
               type='button'
               className='btn btn-danger'
               onClick={async () => {
@@ -109,7 +109,7 @@ export function Overview() {
           )}
           {location.state.original.lock === false ? (
             <button
-              style={{padding: 7}}
+              style={{ padding: 7 }}
               className='btn btn-primary align-self-center'
               onClick={() => {
                 navigate('/quotations/settings', {
@@ -238,9 +238,9 @@ export function Overview() {
                 var last: any = str.substring(str.lastIndexOf('.') + 1)
 
                 return (
-                  <div key={i} style={{marginBottom: 7, display: 'flex', alignItems: 'center'}}>
+                  <div key={i} style={{ marginBottom: 7, display: 'flex', alignItems: 'center' }}>
                     {str.substring(str.indexOf('_') + 1).includes('Quotations_summary') ||
-                    location.state.original.lock === true ? (
+                      location.state.original.lock === true ? (
                       <></>
                     ) : (
                       <span
@@ -264,16 +264,21 @@ export function Overview() {
                       </span>
                     )}
 
-                    <div style={{width: 20, marginRight: 15}}>
+                    <div style={{ width: 20, marginRight: 15 }}>
                       <FileIcon extension={last} {...(defaultStyles as any)[last]} />
                     </div>
-                    <Link
-                      to={toAbsoluteUrl(`/documents/${element}`)}
-                      target='_blank'
-                      download={str.substring(str.indexOf('_') + 1)}
+                    <a
+                      // style={{ color: 'blue' , cursor: 'pointer'}}
+                      href={`${process.env.REACT_APP_APP_URL}/quotations/fetch/${element}`}
+                      // onClick={() => {
+                      //   console.log('aaaaaaa')
+                      //   getAttachment(element)
+
+                      // }}
+                    download={str.substring(str.indexOf('_') + 1)}
                     >
                       {str.substring(str.indexOf('_') + 1)}
-                    </Link>
+                    </a>
                   </div>
                 )
               })}
@@ -318,7 +323,7 @@ export function Overview() {
 
         {location.state.original.type === 'Regular' && (
           <PDFViewer showToolbar={false} width='100%' height='700px'>
-            <MyDocument formikProps={{values: location.state.original}} />
+            <MyDocument formikProps={{ values: location.state.original }} />
           </PDFViewer>
         )}
 
