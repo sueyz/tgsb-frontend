@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useContext, useState} from 'react'
-import {ID, isNotEmpty, KTSVG, QUERIES, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {Link} from 'react-router-dom'
-import {useLocation} from 'react-router'
-import {ProgressBar, Step} from 'react-step-progress-bar'
-import {RootState} from '../../../setup'
-import {shallowEqual, useSelector} from 'react-redux'
-import {useMutation} from 'react-query'
+import React, { useState } from 'react'
+import { ID, isNotEmpty, KTSVG, QUERIES, toAbsoluteUrl } from '../../../_metronic/helpers'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router'
+import { ProgressBar, Step } from 'react-step-progress-bar'
+import { RootState } from '../../../setup'
+import { shallowEqual, useSelector } from 'react-redux'
+import { useMutation } from 'react-query'
 import {
   markQuotation,
   unlockQuotation,
@@ -14,11 +14,11 @@ import {
   uploadAttachements,
 } from '../quotations/quotations-list/core/_requests'
 
-import {confirm} from 'react-confirm-box'
-import {UsersListLoading} from '../quotations/quotations-list/components/loading/QuotationsListLoading'
-import {useNavigate} from 'react-router'
-import {Button, Modal} from 'react-bootstrap'
-import {useFormik} from 'formik'
+import { confirm } from 'react-confirm-box'
+import { UsersListLoading } from '../quotations/quotations-list/components/loading/QuotationsListLoading'
+import { useNavigate } from 'react-router'
+import { Button, Modal } from 'react-bootstrap'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
 
@@ -28,7 +28,7 @@ const editBalanceSchema = Yup.object().shape({
 
 const QuotationHeader: React.FC = () => {
   const location: any = useLocation()
-  const isAdmin = useSelector<RootState>(({auth}) => auth.user?.role, shallowEqual)
+  const isAdmin = useSelector<RootState>(({ auth }) => auth.user?.role, shallowEqual)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -62,15 +62,15 @@ const QuotationHeader: React.FC = () => {
     },
   })
 
-  Array.from(location.state.original.payment_term).forEach((element: any, index: number) => {
-    index > 0
-      ? stepPositions.push(element.percentage + stepPositions[index - 1])
-      : stepPositions.push(element.percentage)
-  })
+  // Array.from(location.state.original.payment_term).forEach((element: any, index: number) => {
+  //   index > 0
+  //     ? stepPositions.push(element.percentage + stepPositions[index - 1])
+  //     : stepPositions.push(element.percentage)
+  // })
 
-  Array.from(location.state.original.quotations).forEach((element: any) => {
-    total += element.amount
-  })
+  // Array.from(location.state.original.quotations).forEach((element: any) => {
+  //   total += element.amount
+  // })
 
   const toggleClass = async () => {
     if (location.state.original.lock === false || isAdmin === 'Administrator') {
@@ -84,7 +84,7 @@ const QuotationHeader: React.FC = () => {
             : await markSelectedItems.mutateAsync()
         }
         navigate('/quotations/overview', {
-          state: {original: location.state.original},
+          state: { original: location.state.original },
         })
 
         return
@@ -101,11 +101,11 @@ const QuotationHeader: React.FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      ...location.state.original,
+      ...location.state?.original,
     },
     enableReinitialize: true,
     validationSchema: editBalanceSchema,
-    onSubmit: async (values, {setSubmitting}) => {
+    onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true)
       if (isNotEmpty(location.state.original.id)) {
         if (file !== undefined) {
@@ -133,7 +133,7 @@ const QuotationHeader: React.FC = () => {
             location.state.original = values // ni hantar alik atas je
 
             navigate('/quotations/overview', {
-              state: {original: location.state.original},
+              state: { original: location.state.original },
             })
           })
           .catch((e) => {
@@ -145,27 +145,27 @@ const QuotationHeader: React.FC = () => {
 
   var total = 0
 
-  location.state.original.quotations?.forEach((element: any) => {
+  location.state?.original.quotations?.forEach((element: any) => {
     total += element.amount
   })
 
   return (
     <div className='card mb-5 mb-xl-10'>
       <div className='card-body pt-9 pb-0'>
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
             Payment Schedule
           </a>
 
           <span
-            style={{marginTop: 5, marginLeft: 5}}
+            style={{ marginTop: 5, marginLeft: 5 }}
             onClick={toggleClass}
-            className={location.state.original.lock ? 'lock' : 'unlocked'}
+            className={location.state?.original.lock ? 'lock' : 'unlocked'}
           ></span>
 
-          {location.state.original.lock === false ? (
+          {location.state?.original.lock === false ? (
             <button
-              style={{margin: 'auto', marginRight: 0}}
+              style={{ margin: 'auto', marginRight: 0 }}
               type='button'
               className='btn btn-success'
               onClick={openModal}
@@ -177,10 +177,10 @@ const QuotationHeader: React.FC = () => {
           )}
 
           <Modal dialogClassName='modal-custom' centered={true} show={isOpen} onHide={closeModal}>
-            <Modal.Header style={{marginRight: 50, marginLeft: 50}} closeButton>
+            <Modal.Header style={{ marginRight: 50, marginLeft: 50 }} closeButton>
               <Modal.Title>Update Paid</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{marginRight: 50, marginLeft: 50}}>
+            <Modal.Body style={{ marginRight: 50, marginLeft: 50 }}>
               <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit}>
                 {/* begin::Scroll */}
 
@@ -195,7 +195,7 @@ const QuotationHeader: React.FC = () => {
                   data-kt-scroll-offset='300px'
                 >
                   {/* begin::Form group BALANCE */}
-                  <div className='fv-row mb-3 d-flex flex-d-row' style={{alignItems: 'center'}}>
+                  <div className='fv-row mb-3 d-flex flex-d-row' style={{ alignItems: 'center' }}>
                     <label className='form-label fw-bolder text-dark fs-6 me-5'>RM</label>
                     <input
                       placeholder='Amount Paid'
@@ -205,7 +205,7 @@ const QuotationHeader: React.FC = () => {
                       {...formik.getFieldProps('balancePaid')}
                       className={clsx(
                         'form-control form-control-lg form-control-solid',
-                        {'is-invalid': formik.touched.balancePaid && formik.errors.balancePaid},
+                        { 'is-invalid': formik.touched.balancePaid && formik.errors.balancePaid },
                         {
                           'is-valid': formik.touched.balancePaid && !formik.errors.balancePaid,
                         }
@@ -217,7 +217,7 @@ const QuotationHeader: React.FC = () => {
                   {formik.touched.balancePaid && formik.errors.balancePaid && (
                     <div className='fv-plugins-message-container'>
                       <div className='mt-2 fv-help-block'>
-                        <span role='alert' style={{color: '#f1416c'}}>
+                        <span role='alert' style={{ color: '#f1416c' }}>
                           {formik.errors.balancePaid}
                         </span>
                       </div>
@@ -278,20 +278,20 @@ const QuotationHeader: React.FC = () => {
 
           {loading && <UsersListLoading />}
 
-          {location.state.original.lock === false}
+          {location.state?.original.lock === false}
         </div>
 
-        <div style={{marginRight: 10, marginBottom: 50, marginTop: 70}}>
+        <div style={{ marginRight: 10, marginBottom: 50, marginTop: 70 }}>
           <ProgressBar
             stepPositions={stepPositions}
-            percent={(location.state.original.balancePaid / total) * 100}
+            percent={(location.state?.original.balancePaid / total) * 100}
             filledBackground='linear-gradient(to right, #fefb72, #f0bb31)'
           >
-            {location.state.original.payment_term.map((value: any, index: number) => {
+            {location.state?.original.payment_term.map((value: any, index: number) => {
               return (
                 <Step transition='scale' key={index}>
-                  {({accomplished, position}) => (
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                  {({ accomplished, position }) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                       <img
                         style={{
                           filter: `grayscale(${accomplished ? 0 : 80}%)`,
@@ -322,14 +322,14 @@ const QuotationHeader: React.FC = () => {
             })}
           </ProgressBar>
         </div>
-        <div style={{display: 'flex', alignItems: 'center', marginTop: 70, marginBottom: 30}}>
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: 70, marginBottom: 30 }}>
           <div>
-            {location.state.original.payment_term.map((value: any, index: number) => {
+            {location.state?.original.payment_term.map((value: any, index: number) => {
               return (
-                <div key={index} style={{display: 'flex', marginTop: 5}}>
+                <div key={index} style={{ display: 'flex', marginTop: 5 }}>
                   {index + 1}
-                  <a style={{marginLeft: 10, marginRight: 10}}> ---&gt; </a>
-                  <b style={{marginRight: 20}}>
+                  <a style={{ marginLeft: 10, marginRight: 10 }}> ---&gt; </a>
+                  <b style={{ marginRight: 20 }}>
                     {new Intl.DateTimeFormat('en-GB', {
                       year: 'numeric',
                       month: '2-digit',
@@ -343,12 +343,12 @@ const QuotationHeader: React.FC = () => {
             })}
           </div>
 
-          <div style={{display: 'flex', flexDirection: 'column', marginLeft: 50}}>
-            <b style={{color: 'green'}}>Balance Paid: RM {location.state.original.balancePaid}</b>
-            <b style={{color: 'red', marginTop: 5}}>
-              Balance Remaining: RM {total - location.state.original.balancePaid}
+          <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 50 }}>
+            <b style={{ color: 'green' }}>Balance Paid: RM {location.state?.original.balancePaid}</b>
+            <b style={{ color: 'red', marginTop: 5 }}>
+              Balance Remaining: RM {total - location.state?.original.balancePaid}
             </b>
-            <b style={{marginTop: 5}}>Total: RM {total}</b>
+            <b style={{ marginTop: 5 }}>Total: RM {total}</b>
           </div>
         </div>
 
@@ -360,11 +360,11 @@ const QuotationHeader: React.FC = () => {
                   `nav-link text-active-primary me-6 ` +
                   (location.pathname === '/quotations/overview' && 'active')
                 }
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   navigate('/quotations/overview', {
                     state: {
-                      original: location.state.original
+                      original: location.state?.original
                     },
                   })
                 }}
@@ -373,17 +373,17 @@ const QuotationHeader: React.FC = () => {
               </a>
             </li>
             <li className='nav-item'>
-              {location.state.original.lock === false ? (
+              {location.state?.original.lock === false ? (
                 <a
                   className={
                     `nav-link text-active-primary me-6 ` +
                     (location.pathname === '/quotations/settings' && 'active')
                   }
-                  style={{cursor: 'pointer'}}
+                  style={{ cursor: 'pointer' }}
                   onClick={() => {
                     navigate('/quotations/settings', {
                       state: {
-                        original: location.state.original
+                        original: location.state?.original
                       },
                     })
                   }}
@@ -401,4 +401,4 @@ const QuotationHeader: React.FC = () => {
   )
 }
 
-export {QuotationHeader}
+export { QuotationHeader }

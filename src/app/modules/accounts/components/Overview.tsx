@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { KTSVG, toAbsoluteUrl } from '../../../../_metronic/helpers'
 import { useLocation } from 'react-router'
@@ -75,11 +75,16 @@ export function Overview() {
     }
   )
 
-  const match = location.state.original.attachments.find((element: any) => {
-    if (element.includes('_Quotations_summary')) {
-      return true
-    }
-  })
+  // const match = location.state.original.attachments.find((element: any) => {
+  //   if (element.includes('_Quotations_summary')) {
+  //     return true
+  //   }
+  // })
+
+  useEffect(() => {
+    if (!location.state)
+      navigate('/quotations/list')
+  }, [location.key])
 
   return (
     <>
@@ -88,7 +93,7 @@ export function Overview() {
           <div className='card-title m-0'>
             <h3 className='fw-bolder m-0'>Quotation Details</h3>
           </div>
-          {location.state.original.lock === false ? (
+          {location.state?.original.lock === false ? (
             <button
               style={{ margin: 'auto', marginRight: 20, padding: 7 }}
               type='button'
@@ -107,14 +112,14 @@ export function Overview() {
           ) : (
             <></>
           )}
-          {location.state.original.lock === false ? (
+          {location.state?.original.lock === false ? (
             <button
               style={{ padding: 7 }}
               className='btn btn-primary align-self-center'
               onClick={() => {
                 navigate('/quotations/settings', {
                   state: {
-                    original: location.state.original
+                    original: location.state?.original
                   },
                 })
               }}
@@ -131,7 +136,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Invoice No</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bolder fs-6'>{location.state.original.invoiceNo}</span>
+              <span className='fw-bolder fs-6'>{location.state?.original.invoiceNo}</span>
             </div>
           </div>
 
@@ -139,7 +144,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Quotation Name</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>{location.state.original.name}</span>
+              <span className='fw-bolder fs-6 text-dark'>{location.state?.original.name}</span>
             </div>
           </div>
 
@@ -147,7 +152,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Quotation Type</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bolder fs-6'>{location.state.original.type}</span>
+              <span className='fw-bolder fs-6'>{location.state?.original.type}</span>
             </div>
           </div>
 
@@ -155,7 +160,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Company In Charge</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bolder fs-6'>{location.state.original.companyName}</span>
+              <span className='fw-bolder fs-6'>{location.state?.original.companyName}</span>
             </div>
           </div>
 
@@ -163,7 +168,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Work Type</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bolder fs-6'>{location.state.original.workType}</span>
+              <span className='fw-bolder fs-6'>{location.state?.original.workType}</span>
             </div>
           </div>
 
@@ -172,11 +177,11 @@ export function Overview() {
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bolder fs-6'>
-                {location.state.original.address1},{' '}
-                {location.state.original.address2 ? location.state.original.address2 + ',' : ''}{' '}
-                {location.state.original.address3 ? location.state.original.address3 + ',' : ''}{' '}
-                {location.state.original.zip}, {location.state.original.city},{' '}
-                {location.state.original.state}
+                {location.state?.original.address1},{' '}
+                {location.state?.original.address2 ? location.state?.original.address2 + ',' : ''}{' '}
+                {location.state?.original.address3 ? location.state?.original.address3 + ',' : ''}{' '}
+                {location.state?.original.zip}, {location.state?.original.city},{' '}
+                {location.state?.original.state}
               </span>
             </div>
           </div>
@@ -186,7 +191,7 @@ export function Overview() {
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
-                {location.state.original.poc ? location.state.original.poc : '-'}
+                {location.state?.original.poc ? location.state.original.poc : '-'}
               </span>
             </div>
           </div>
@@ -196,7 +201,7 @@ export function Overview() {
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
-                {location.state.original.contact ? location.state.original.contact : '-'}
+                {location.state?.original.contact ? location.state.original.contact : '-'}
               </span>
             </div>
           </div>
@@ -206,7 +211,7 @@ export function Overview() {
 
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>
-                {location.state.original.email ? location.state.original.email : '-'}
+                {location.state?.original.email ? location.state.original.email : '-'}
               </span>
             </div>
           </div>
@@ -216,7 +221,7 @@ export function Overview() {
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bolder fs-6'>
-                {location.state.original.note ? location.state.original.note : '-'}
+                {location.state?.original.note ? location.state.original.note : '-'}
               </span>
             </div>
           </div>
@@ -225,7 +230,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Lock</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bold fs-6'>{location.state.original.lock.toString()}</span>
+              <span className='fw-bold fs-6'>{location.state?.original.lock.toString()}</span>
             </div>
           </div>
 
@@ -233,21 +238,21 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Attachments</label>
 
             <div className='col-lg-8'>
-              {location.state.original.attachments.map((element: any, i: number) => {
+              {location.state?.original.attachments.map((element: any, i: number) => {
                 var str = element.replace('quotations/', '')
                 var last: any = str.substring(str.lastIndexOf('.') + 1)
 
                 return (
                   <div key={i} style={{ marginBottom: 7, display: 'flex', alignItems: 'center' }}>
                     {str.substring(str.indexOf('_') + 1).includes('Quotations_summary') ||
-                      location.state.original.lock === true ? (
+                      location.state?.original.lock === true ? (
                       <></>
                     ) : (
                       <span
                         onClick={async () => {
                           var placeholder = {
                             path: element,
-                            attachments: location.state.original.attachments,
+                            attachments: location.state?.original.attachments,
                           }
 
                           await deletePdfItem.mutateAsync(placeholder)
@@ -275,7 +280,7 @@ export function Overview() {
                       //   getAttachment(element)
 
                       // }}
-                    download={str.substring(str.indexOf('_') + 1)}
+                      download={str.substring(str.indexOf('_') + 1)}
                     >
                       {str.substring(str.indexOf('_') + 1)}
                     </a>
@@ -321,9 +326,9 @@ export function Overview() {
           )}
         </SizeMe> */}
 
-        {location.state.original.type === 'Regular' && (
+        {location.state?.original.type === 'Regular' && (
           <PDFViewer showToolbar={false} width='100%' height='700px'>
-            <MyDocument formikProps={{ values: location.state.original }} />
+            <MyDocument formikProps={{ values: location.state?.original }} />
           </PDFViewer>
         )}
 
