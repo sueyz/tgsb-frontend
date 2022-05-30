@@ -10,7 +10,7 @@ import { SizeMe } from 'react-sizeme'
 
 import { FileIcon, defaultStyles } from 'react-file-icon'
 import { useMutation } from 'react-query'
-import { deleteQuotation, deletePdf, getAttachment } from '../../quotations/quotations-list/core/_requests'
+import { deleteQuotation, deletePdf } from '../../quotations/quotations-list/core/_requests'
 import { confirm } from 'react-confirm-box'
 import { useNavigate } from 'react-router'
 import { ToastContainer, toast } from 'react-toastify'
