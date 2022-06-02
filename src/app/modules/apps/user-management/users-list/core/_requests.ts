@@ -6,6 +6,8 @@ const API_URL = process.env.REACT_APP_APP_URL
 const USER_URL = `${API_URL}/user`
 const USER_IMAGE_UPLOAD_URL = `${API_URL}/user/upload`
 const GET_USERS_URL = `${API_URL}/user/query`
+const USERS_IMAGE_FETCH_URL = `${API_URL}/user/fetch`
+
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
@@ -39,6 +41,15 @@ const uploadImage = (file: FormData) => {
     })
 }
 
+const getImage = (string: String) => {
+  return axios
+    .get(`${USERS_IMAGE_FETCH_URL}/${string}`, {responseType: 'blob'})  
+    .then((response) => {      
+      var imageUrl = URL.createObjectURL(response.data)
+      return imageUrl
+    })
+}
+
 const updateUser = (user: User): Promise<User | undefined> => {
   return axios
     .put(`${USER_URL}/${user.id}`, user)
@@ -55,4 +66,4 @@ const deleteSelectedUsers = (userIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getUsers, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser, uploadImage}
+export {getUsers, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser, uploadImage, getImage}

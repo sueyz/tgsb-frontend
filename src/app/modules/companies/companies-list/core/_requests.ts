@@ -40,12 +40,10 @@ const uploadImage = (file: FormData) => {
     })
 }
 
-const getImage = (string: String) => {
+const getImage = (string: String | undefined) => {
   return axios
     .get(`${COMPANY_IMAGE_FETCH_URL}/${string}`, {responseType: 'blob'})  
     .then((response) => {
-      console.log(response)
-      
       var imageUrl = URL.createObjectURL(response.data)
       return imageUrl
     })
