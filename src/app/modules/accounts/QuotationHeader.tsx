@@ -83,7 +83,7 @@ const QuotationHeader: React.FC = () => {
             ? await unlockItem.mutateAsync()
             : await markSelectedItems.mutateAsync()
         }
-        navigate('/quotations/overview', {
+        navigate('/companies/overview', {
           state: { original: location.state.original },
         })
 
@@ -132,7 +132,7 @@ const QuotationHeader: React.FC = () => {
 
             location.state.original = values // ni hantar alik atas je
 
-            navigate('/quotations/overview', {
+            navigate('/companies/overview', {
               state: { original: location.state.original },
             })
           })
@@ -358,11 +358,11 @@ const QuotationHeader: React.FC = () => {
               <a
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/quotations/overview' && 'active')
+                  (location.pathname === '/companies/overview' && 'active')
                 }
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  navigate('/quotations/overview', {
+                  navigate('/companies/overview', {
                     state: {
                       original: location.state?.original
                     },

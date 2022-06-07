@@ -211,7 +211,7 @@ const QuotationDetails: React.FC = () => {
               location.state.original = values // ni hantar alik atas je
            
 
-              navigate('/quotations/overview', {
+              navigate('/companies/overview', {
                 state: {
                   original: location.state.original
                 },

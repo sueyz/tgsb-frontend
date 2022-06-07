@@ -67,7 +67,7 @@ export function Overview() {
         // console.log(response)
         location.state.original = response // nak antar  ni ke overview
 
-        navigate('/quotations/overview', {
+        navigate('/companies/overview', {
           state: { original: location.state.original },
         })
 

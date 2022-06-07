@@ -257,7 +257,7 @@ const DashboardPage: FC = () => {
                     type='button'
                     className='btn btn-primary'
                     onClick={() =>
-                      navigate('/quotations/overview', {
+                      navigate('/companies/overview', {
                         state: {original: element},
                       })
                     }

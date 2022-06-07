@@ -10,7 +10,7 @@ type Props = {
 const QuotationsSelectionHeader: FC<Props> = ({tableProps}) => {
   const {isAllSelected, onSelectAll} = useListView()
   return (
-    <th {...tableProps.column.getHeaderProps()} className='w-10px ps-3'>
+    <th {...tableProps.column.getHeaderProps()} className='w-200px ps-11'>
       {/* <div className='form-check form-check-sm form-check-custom form-check-solid me-3'>
         <input
           className='form-check-input'
@@ -21,7 +21,7 @@ const QuotationsSelectionHeader: FC<Props> = ({tableProps}) => {
           onChange={onSelectAll}
         />
       </div> */}
-      Lock?
+      In Status
     </th>
   )
 }
