@@ -40,9 +40,9 @@ const createQuotations = (quotation: Quotations): Promise<Quotations | undefined
     })
 }
 
-const getCompanies = (text: String): Promise<CompaniesQueryResponse> => {
+const getCompanies = (): Promise<CompaniesQueryResponse> => {
   return axios
-    .get(`${GET_COMPANIES_URL}${text}`)
+    .get(`${GET_COMPANIES_URL}`)
     .then((d: AxiosResponse<CompaniesQueryResponse>) => d.data)
 }
 
@@ -177,7 +177,7 @@ const Main: FC = () => {
       values.company = undefined
       await checkInvoice(values.invoiceNo ? values.invoiceNo : '').then(async (response) => {
         if (response.data === null) {
-          var { data } = await getCompanies(values.type ? values.type : '')
+          var { data } = await getCompanies()
 
           var profileArrray = []
 
@@ -443,16 +443,16 @@ const Main: FC = () => {
                               <ErrorMessage name='name' />
                             </div>
                           </div>
-
+                          {/* 
                           <div className='fv-row'>
                             <label className='d-flex align-items-center fs-5 fw-bold mb-4'>
                               <span className='required'>Quotation type</span>
 
-                              {/* <i
+                               <i
                                 className='fas fa-exclamation-circle ms-2 fs-7'
                                 data-bs-toggle='tooltip'
                                 title='Select your app type'
-                              ></i> */}
+                              ></i> 
                             </label>
 
                             <div className='fv-row'>
@@ -520,7 +520,7 @@ const Main: FC = () => {
                             <div className='text-danger'>
                               <ErrorMessage name='type' />
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
 
