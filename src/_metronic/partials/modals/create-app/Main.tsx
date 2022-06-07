@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, useEffect, useRef } from 'react'
 import useState from 'react-usestateref'
-import ReactPDF, { Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer'
+import ReactPDF, { Document, Page, Text, View, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer'
 import { KTSVG, toAbsoluteUrl } from '../../../helpers'
 import { Formik, Form, FormikValues, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
@@ -555,6 +555,11 @@ const Main: FC = () => {
                                 refCompany.current.length > 0 ? (
                                   refCompany.current.map((company: Companies, i: number) => {
                                     formikProps.values.companyName = company.name
+                                    formikProps.values.companyAddress = company.address
+
+                                    // setCompanyAddress(company.address)
+                                    // setCompanyAddress(company.registration)
+                                    // formikProps.values.companyRegistration = company.name
                                     return (
                                       <label
                                         key={i}
@@ -1487,200 +1492,297 @@ const Term = (term: any) => {
   )
 }
 
-const MyDocument = (props: any) => (
-  <Document>
-    <Page style={styles.page} size='A4'>
-      <View style={styles.table}>
-        <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
-          Table 1.0: Proposed Fee for Preparing the {props.formikProps.values.workType}
-        </Text>
-        <View style={[styles.row]}>
-          <Text
-            style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
-          >
-            #
-          </Text>
-          <Text
-            style={[
-              styles.headerText,
-              styles.cell,
-              { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
-            ]}
-          >
-            Description
-          </Text>
-          <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
-            Amount (RM)
-          </Text>
-        </View>
-        <Proposed props={props} />
 
-        <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, marginTop: 50 }}>
-          Table 2.0: Schedule of Payment for Preparing the {props.formikProps.values.workType}
-        </Text>
-        <View style={[styles.row]}>
-          <Text
-            style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
-          >
-            #
-          </Text>
-          <Text
-            style={[
-              styles.headerText,
-              styles.cell,
-              { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
-            ]}
-          >
-            Term of Payment
-          </Text>
-          <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
-            Amount (RM)
-          </Text>
-        </View>
-        <Term props={props} />
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            fontSize: 9,
-            marginTop: 5,
-            textAlign: 'left',
-            lineHeight: 1.5,
-            paddingRight: 30,
-          }}
-        >
-          <Text>Note: </Text>
-          <Text> - </Text>
-          <Text>
-            {' '}
-            Make all cheque payable to TROPICAL GROWTH (M) SDN BHD or kindly bank in to TROPICAL
-            GROWTH (M) SDN BHD (Maybank Account no: 553038601340)
-          </Text>
-        </View>
-      </View>
-    </Page>
+const MyDocument = (props: any) => {
 
-    <Page style={styles.page} size='A4'>
-      <View style={styles.table}>
-        <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
-          Table 3.0: Proposed Project Schedule
-        </Text>
-        <View style={[styles.row]}>
-          <Text
-            style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
-          >
-            #
+  var today = new Date()
+  var dd = today.getDate()
+  var mm = today.getMonth() + 1
+  var yyyy = today.getFullYear()
+
+  var ddNew = dd.toString()
+  var mmNew = mm.toString()
+
+
+  if (dd < 10)
+    ddNew = '0' + dd
+
+  if (mm < 10)
+    mmNew = '0' + mm
+
+  var todayNew = ddNew + '/' + mmNew + '/' + yyyy
+
+
+  const string = props.formikProps.values.companyAddress
+  const splittedString = string.split(',')
+
+  return (
+    <Document>
+      <Page style={styles.page} size='A4'>
+        <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              src={toAbsoluteUrl('/media/logos/TGSB-original.jpg')}
+              style={{ height: 80, marginLeft: 0 }}
+            />
+            <View style={{ display: 'flex', flexDirection: 'column' }}>
+              <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Text style={{ fontFamily: 'Times-Bold', fontSize: 15 }}>
+                  TROPICAL GROWTH (M) SDN BHD
+                </Text>
+                <Text style={{ fontFamily: 'Times-Bold', fontSize: 8, marginTop: 6, marginLeft: 4 }}>
+                  (1057718-W)
+                </Text>
+              </View>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 8, marginTop: 3 }}>
+                Lot PT 766, Tingkat 1, Pasar Awam Bersepadu,
+              </Text>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 8, marginTop: 3 }}>
+                Wakaf Che Yeh, 15100 Kota Bharu, Kelantan Darul Naim.
+              </Text>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 8, marginTop: 3 }}>
+                Tel: 018-5964763                              Email: tropicalgrowth@gmail.com
+              </Text>
+
+            </View>
+          </View>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            Our Ref: {props.formikProps.values.invoiceNo}
           </Text>
-          <Text
-            style={[
-              styles.headerText,
-              styles.cell,
-              { width: '55%', borderRight: 0, borderBottom: 0 },
-            ]}
-          >
-            Description
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            Date: {todayNew}
           </Text>
-          <Text
-            style={[
-              styles.headerText,
-              styles.cell,
-              { width: '15%', borderRight: 0, borderBottom: 0 },
-            ]}
-          >
-            Week No
+
+          <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, marginTop: 30 }}>
+            {props.formikProps.values.companyName}
           </Text>
-          <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
-            Remarks
+
+          {splittedString.map((value: any, index: number) => {
+
+            <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+              {splittedString[index]},
+            </Text>
+
+          })}
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            {splittedString[0]}, {splittedString[1]},
           </Text>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            {splittedString.slice(2, splittedString.length - 1)},
+          </Text>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            {splittedString[splittedString.length - 1]}
+          </Text>
+
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10, marginTop: 30 }}>
+            Dear sir,
+          </Text>
+
+          <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, marginTop: 10, textTransform: 'uppercase', textAlign: 'left' }}>
+            Quotation of {props.formikProps.values.workType === 'EIA' && 'Environmental Impact assesment'} ({props.formikProps.values.workType}) FOR Proposed {props.formikProps.values.name} at {props.formikProps.values.address1 + ', '} 
+            {props.formikProps.values.address2 ? props.formikProps.values.address2 + ', ' : ''  }
+            {props.formikProps.values.address3 ? props.formikProps.values.address3 + ', ': '' } 
+            {props.formikProps.values.zip}, {' ' +props.formikProps.values.city}, {' ' +props.formikProps.values.state}.
+          </Text>
+
         </View>
-        {props.formikProps.values.projectSchedule ? (
-          props.formikProps.values.projectSchedule.map((value: any, index: number) => {
-            return (
-              <div key={index}>
-                <View style={[styles.row]}>
-                  {props.formikProps.values.projectSchedule?.length !== index + 1 ? (
-                    <>
-                      <Text style={[styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}>
-                        {index + 1}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.cell,
-                          {
-                            width: '55%',
-                            borderRight: 0,
-                            textAlign: 'left',
-                            paddingLeft: 10,
-                            paddingBottom: 10,
-                            borderBottom: 0,
-                          },
-                        ]}
-                      >
-                        {value.desc}
-                      </Text>
-                      <Text style={[styles.cell, { width: '15%', borderBottom: 0, borderRight: 0 }]}>
-                        {value.week}
-                      </Text>
-                      <Text style={[styles.cell, { width: '25%', borderBottom: 0 }]}>
-                        {value.remark}
-                      </Text>
-                    </>
-                  ) : (
-                    <>
-                      <Text style={[styles.cell, { width: '5%', borderRight: 0 }]}>{index + 1}</Text>
-                      <Text
-                        style={[
-                          styles.cell,
-                          {
-                            width: '55%',
-                            borderRight: 0,
-                            textAlign: 'left',
-                            paddingLeft: 10,
-                            paddingBottom: 10,
-                          },
-                        ]}
-                      >
-                        {value.desc}
-                      </Text>
-                      <Text style={[styles.cell, { width: '15%', borderRight: 0 }]}>
-                        {value.week}
-                      </Text>
-                      <Text style={[styles.cell, { width: '25%' }]}>{value.remark}</Text>
-                    </>
-                  )}
-                </View>
-              </div>
-            )
-          })
-        ) : (
-          <></>
-        )}
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            fontSize: 9,
-            marginTop: 5,
-            textAlign: 'left',
-            lineHeight: 1.5,
-            paddingRight: 30,
-          }}
-        >
-          <Text>Note: </Text>
-          <Text> - </Text>
-          <Text>
-            {' '}
-            This proposed schedule however, will be very much depending on delivery of requested
-            information, payment made by project proponent on every stage of claim. Any delay may
-            affect the overall schedule of {props.formikProps.values.workType} preparation and
-            submission.
+
+      </Page>
+
+      <Page style={styles.page} size='A4'>
+        <View style={styles.table}>
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
+            Table 1.0: Proposed Fee for Preparing the {props.formikProps.values.workType}
           </Text>
+          <View style={[styles.row]}>
+            <Text
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+            >
+              #
+            </Text>
+            <Text
+              style={[
+                styles.headerText,
+                styles.cell,
+                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
+              ]}
+            >
+              Description
+            </Text>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+              Amount (RM)
+            </Text>
+          </View>
+          <Proposed props={props} />
+
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, marginTop: 50 }}>
+            Table 2.0: Schedule of Payment for Preparing the {props.formikProps.values.workType}
+          </Text>
+          <View style={[styles.row]}>
+            <Text
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+            >
+              #
+            </Text>
+            <Text
+              style={[
+                styles.headerText,
+                styles.cell,
+                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
+              ]}
+            >
+              Term of Payment
+            </Text>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+              Amount (RM)
+            </Text>
+          </View>
+          <Term props={props} />
+
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              fontSize: 9,
+              marginTop: 5,
+              textAlign: 'left',
+              lineHeight: 1.5,
+              paddingRight: 30,
+            }}
+          >
+            <Text>Note: </Text>
+            <Text> - </Text>
+            <Text>
+              {' '}
+              Make all cheque payable to TROPICAL GROWTH (M) SDN BHD or kindly bank in to TROPICAL
+              GROWTH (M) SDN BHD (Maybank Account no: 553038601340)
+            </Text>
+          </View>
         </View>
-      </View>
-    </Page>
-  </Document>
-)
+      </Page>
+
+      <Page style={styles.page} size='A4'>
+        <View style={styles.table}>
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
+            Table 3.0: Proposed Project Schedule
+          </Text>
+          <View style={[styles.row]}>
+            <Text
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+            >
+              #
+            </Text>
+            <Text
+              style={[
+                styles.headerText,
+                styles.cell,
+                { width: '55%', borderRight: 0, borderBottom: 0 },
+              ]}
+            >
+              Description
+            </Text>
+            <Text
+              style={[
+                styles.headerText,
+                styles.cell,
+                { width: '15%', borderRight: 0, borderBottom: 0 },
+              ]}
+            >
+              Week No
+            </Text>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+              Remarks
+            </Text>
+          </View>
+          {props.formikProps.values.projectSchedule ? (
+            props.formikProps.values.projectSchedule.map((value: any, index: number) => {
+              return (
+                <div key={index}>
+                  <View style={[styles.row]}>
+                    {props.formikProps.values.projectSchedule?.length !== index + 1 ? (
+                      <>
+                        <Text style={[styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}>
+                          {index + 1}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.cell,
+                            {
+                              width: '55%',
+                              borderRight: 0,
+                              textAlign: 'left',
+                              paddingLeft: 10,
+                              paddingBottom: 10,
+                              borderBottom: 0,
+                            },
+                          ]}
+                        >
+                          {value.desc}
+                        </Text>
+                        <Text style={[styles.cell, { width: '15%', borderBottom: 0, borderRight: 0 }]}>
+                          {value.week}
+                        </Text>
+                        <Text style={[styles.cell, { width: '25%', borderBottom: 0 }]}>
+                          {value.remark}
+                        </Text>
+                      </>
+                    ) : (
+                      <>
+                        <Text style={[styles.cell, { width: '5%', borderRight: 0 }]}>{index + 1}</Text>
+                        <Text
+                          style={[
+                            styles.cell,
+                            {
+                              width: '55%',
+                              borderRight: 0,
+                              textAlign: 'left',
+                              paddingLeft: 10,
+                              paddingBottom: 10,
+                            },
+                          ]}
+                        >
+                          {value.desc}
+                        </Text>
+                        <Text style={[styles.cell, { width: '15%', borderRight: 0 }]}>
+                          {value.week}
+                        </Text>
+                        <Text style={[styles.cell, { width: '25%' }]}>{value.remark}</Text>
+                      </>
+                    )}
+                  </View>
+                </div>
+              )
+            })
+          ) : (
+            <></>
+          )}
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              fontSize: 9,
+              marginTop: 5,
+              textAlign: 'left',
+              lineHeight: 1.5,
+              paddingRight: 30,
+            }}
+          >
+            <Text>Note: </Text>
+            <Text> - </Text>
+            <Text>
+              {' '}
+              This proposed schedule however, will be very much depending on delivery of requested
+              information, payment made by project proponent on every stage of claim. Any delay may
+              affect the overall schedule of {props.formikProps.values.workType} preparation and
+              submission.
+            </Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  )
+}
 
 const styles = StyleSheet.create({
   page: { flexDirection: 'column', padding: 25, textAlign: 'center', marginTop: 30 },

@@ -23,6 +23,8 @@ export type Quotations = {
   workType?: string,
   attachments?: Array<String>,
   lock?: boolean,
+
+  companyAddress?: String
   // online?: boolean
   // initials?: {
   //   label: string
@@ -66,5 +68,7 @@ export const initialQuotations: Quotations = {
   email: '',
   workType: 'EIA',
   attachments: [],
-  lock: false
+  lock: false,
+
+  companyAddress:''
 }
