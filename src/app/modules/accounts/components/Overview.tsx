@@ -19,6 +19,7 @@ import { PDFViewer } from '@react-pdf/renderer'
 import { MyDocument } from '../../../../_metronic/partials'
 
 export function Overview() {
+
   const isAdmin = useSelector<RootState>(({ auth }) => auth.user?.role, shallowEqual)
 
   const location: any = useLocation()
@@ -83,7 +84,7 @@ export function Overview() {
 
   useEffect(() => {
     if (!location.state)
-      navigate('/quotations/list')
+      navigate('/companies/quotationList')
   }, [location.key])
 
   return (

@@ -10,7 +10,7 @@ export function MenuInner() {
     <>
       <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' />
       <MenuItem title='Companies' to='/companies' />
-      <MenuItem title='Quotations' to='/quotations' />
+      {/* <MenuItem title='Quotations' to='/quotations' /> */}
     </>
   )
 }

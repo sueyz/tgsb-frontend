@@ -31,12 +31,12 @@ export function AsideMenuMain() {
         title='Companies'
         fontIcon='bi-layers'
       />
-      <AsideMenuItem
+      {/* <AsideMenuItem
         to='/quotations'
         icon='/media/icons/duotune/finance/fin007.svg'
         title='Quotations'
         fontIcon='bi-layers'
-      />
+      /> */}
       {/* <AsideMenuItemWithSub
         to='/crafted/pages'
         title='Pages'

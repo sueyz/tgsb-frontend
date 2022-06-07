@@ -7,9 +7,9 @@ const QUOTATIONS_URL = `${API_URL}/quotations`
 const GET_QUOTATIONS_URL = `${API_URL}/quotations/query`
 const ATTACHMENTS_UPLOAD_URL = `${API_URL}/quotations/upload`
 
-const getQuotations = (query: string): Promise<QuotationsQueryResponse> => {
+const getQuotations = (query: string, id: ID): Promise<QuotationsQueryResponse> => {
   return axios
-    .get(`${GET_QUOTATIONS_URL}?${query}`)
+    .get(`${GET_QUOTATIONS_URL}/${id}?${query}`)
     .then((d: AxiosResponse<QuotationsQueryResponse>) => d.data)
 }
 

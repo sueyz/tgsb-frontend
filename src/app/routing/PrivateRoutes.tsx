@@ -73,7 +73,7 @@ const PrivateRoutes = () => {
         />
         {/* companies */}
         <Route
-          path='/companies'
+          path='/companies/*'
           element={
             <SuspensedView>
               <PageTitle>Company list</PageTitle>

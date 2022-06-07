@@ -19,7 +19,7 @@ export type Companies = {
 export type CompaniesQueryResponse = Response<Array<Companies>>
 
 export const initialCompany: Companies = {
-  avatar: 'avatars/blank.png',
+  avatar: 'companies/blank.png',
   address: '',
   type: 'Regular',
   name: '',

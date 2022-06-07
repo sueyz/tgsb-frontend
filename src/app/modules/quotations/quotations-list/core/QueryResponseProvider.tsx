@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {FC, useContext, useState, useEffect, useMemo} from 'react'
-import {useQuery} from 'react-query'
+import { FC, useContext, useState, useEffect, useMemo } from 'react'
+import { useQuery } from 'react-query'
 import {
   createResponseContext,
   initialQueryResponse,
@@ -9,15 +9,18 @@ import {
   QUERIES,
   stringifyRequestQuery,
 } from '../../../../../_metronic/helpers'
-import {getQuotations} from './_requests'
-import {Quotations} from './_models'
-import {useQueryRequest} from './QueryRequestProvider'
+import { getQuotations } from './_requests'
+import { Quotations } from './_models'
+import { useQueryRequest } from './QueryRequestProvider'
+import { useLocation } from 'react-router-dom'
 
 const QueryResponseContext = createResponseContext<Quotations>(initialQueryResponse)
-const QueryResponseProvider: FC = ({children}) => {
-  const {state} = useQueryRequest()
+const QueryResponseProvider: FC = ({ children }) => {
+  const { state } = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
+
+  const location: any = useLocation()
 
   useEffect(() => {
     if (query !== updatedQuery) {
@@ -32,13 +35,16 @@ const QueryResponseProvider: FC = ({children}) => {
   } = useQuery(
     `${QUERIES.QUOTATION_LIST}-${query}`,
     () => {
-      return getQuotations(query)
+      if (!location.state)
+        return undefined
+      else
+        return getQuotations(query, location.state.original)
     },
-    {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
+    { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false }
   )
 
   return (
-    <QueryResponseContext.Provider value={{isLoading: isFetching, refetch, response, query}}>
+    <QueryResponseContext.Provider value={{ isLoading: isFetching, refetch, response, query }}>
       {children}
     </QueryResponseContext.Provider>
   )
@@ -47,7 +53,7 @@ const QueryResponseProvider: FC = ({children}) => {
 const useQueryResponse = () => useContext(QueryResponseContext)
 
 const useQueryResponseData = () => {
-  const {response} = useQueryResponse()
+  const { response } = useQueryResponse()
   if (!response) {
     return []
   }
@@ -61,7 +67,7 @@ const useQueryResponsePagination = () => {
     ...initialQueryState,
   }
 
-  const {response} = useQueryResponse()
+  const { response } = useQueryResponse()
   if (!response || !response.payload || !response.payload.pagination) {
     return defaultPaginationState
   }
@@ -70,7 +76,7 @@ const useQueryResponsePagination = () => {
 }
 
 const useQueryResponseLoading = (): boolean => {
-  const {isLoading} = useQueryResponse()
+  const { isLoading } = useQueryResponse()
   return isLoading
 }
 

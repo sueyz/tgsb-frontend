@@ -6,6 +6,7 @@ import { Companies } from '../../core/_models'
 import cn from "classnames";
 import { CompaniesActionsCell } from './CompaniesActionsCell'
 import { getImage } from '../../core/_requests';
+import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
   company: Companies
@@ -15,13 +16,15 @@ const CompaniesInfoCell: FC<Props> = ({ company }) => {
 
   const [src, setSrc] = useState('');
 
+  const navigate = useNavigate()
+
   useEffect(() => {
-    getImage(company.avatar ? company.avatar : '').then((res : any) => {
+    getImage(company.avatar ? company.avatar : '').then((res: any) => {
       setSrc(res);
 
-    })  
-    
-}, [company.avatar])
+    })
+
+  }, [company.avatar])
 
 
   return (
@@ -66,7 +69,11 @@ const CompaniesInfoCell: FC<Props> = ({ company }) => {
 
             <div className="card-body d-flex justify-content-center align-items-center">
 
-              {/* <a style={{ color: '#34b0f6' }} href='/crafted/account/overview' className="card-text fs-1 fw-bolder"><u>More Info</u></a> */}
+              <p style={{ color: '#34b0f6', cursor: 'pointer' }} onClick={() => {
+                navigate('/companies/quotationList', {
+                  state: { original: company.id },
+                })
+              }} className="card-text fs-1 fw-bolder"><u>More Info</u></p>
               {/* <Link to='/crafted/account/settings' className='menu-link px-5'>
           Account Settings
         </Link> */}
