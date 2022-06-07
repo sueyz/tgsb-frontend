@@ -133,10 +133,12 @@ const Main: FC = () => {
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createQuotationSchema[0])
   const [company, setCompany, refCompany] = useState<Companies[]>()
+  const [companyOriginal, setCompanyOriginal, refCompanyOriginal] = useState<Companies[]>()
   const [initValues] = useState<Quotations>(initialQuotations)
   const { refetch } = useQueryResponse()
   const { setHistory } = useHistoryState()
   const [src, setSrc, refSrc] = useState<string[]>();
+  const inputRef = useRef(null);
 
   const [file, setFile] = useState<File[]>()
 
@@ -169,6 +171,9 @@ const Main: FC = () => {
     // console.log(stepper.current)
 
     if (stepper.current.currentStepIndex === 1) {
+      // @ts-ignore
+      inputRef.current.value = '';
+
       values.company = undefined
       await checkInvoice(values.invoiceNo ? values.invoiceNo : '').then(async (response) => {
         if (response.data === null) {
@@ -188,7 +193,9 @@ const Main: FC = () => {
 
           setSrc(profileArrray)
           setCompany(data)
+          setCompanyOriginal(data)
         } else {
+          setCompanyOriginal(undefined)
           setCompany(undefined)
           notifyExist()
         }
@@ -245,6 +252,17 @@ const Main: FC = () => {
 
     loadStepper()
   }, [stepperRef])
+
+  const filterList = (e: any) => {
+
+    const updatedList = refCompanyOriginal.current?.filter((item: any) => {
+      return (
+        item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+      );
+    });
+
+    setCompany(updatedList)
+  };
 
   return (
     <div className='modal fade' id='kt_modal_create_app' aria-hidden='true'>
@@ -524,7 +542,15 @@ const Main: FC = () => {
                               </i>
                             </p>
 
-                            <div style={{ height: 300, overflowY: 'scroll' }}>
+                            <input
+                              type="text"
+                              ref={inputRef}
+                              className='form-control form-control-lg form-control-solid'
+                              placeholder='Search'
+                              onChange={filterList}
+                            />
+
+                            <div style={{ height: 300, overflowY: 'scroll', marginTop: 30 }}>
                               {refCompany.current ? (
                                 refCompany.current.length > 0 ? (
                                   refCompany.current.map((company: Companies, i: number) => {
@@ -539,7 +565,7 @@ const Main: FC = () => {
                                             {company.avatar ? (
                                               <div className='symbol-label'>
                                                 <img
-                                                  src={src ? src[i] : '' }
+                                                  src={src ? src[i] : ''}
                                                   className='h-100 w-100'
                                                   style={{ objectFit: 'cover' }}
                                                 />
