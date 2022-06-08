@@ -1419,7 +1419,7 @@ const Proposed = (fee: any) => {
                 >
                   Total
                 </Text>
-                <Text style={[styles.cell, { width: '25%', fontWeight: 'bold' }]}>
+                <Text style={[styles.cell, { width: '25%', fontFamily: 'Times-Bold' }]}>
                   {totalProposed}
                 </Text>
               </>
@@ -1480,7 +1480,7 @@ const Term = (term: any) => {
                 >
                   Total
                 </Text>
-                <Text style={[styles.cell, { width: '25%', fontWeight: 'bold' }]}>{totalTerm}</Text>
+                <Text style={[styles.cell, { width: '25%', fontFamily: 'Times-Bold' }]}>{totalTerm}</Text>
               </>
             )}
           </View>
@@ -1547,57 +1547,123 @@ const MyDocument = (props: any) => {
 
             </View>
           </View>
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
             Our Ref: {props.formikProps.values.invoiceNo}
           </Text>
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
             Date: {todayNew}
           </Text>
 
-          <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, marginTop: 30 }}>
+          <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, marginTop: 30 }}>
             {props.formikProps.values.companyName}
           </Text>
 
           {splittedString.map((value: any, index: number) => {
 
-            <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+            <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
               {splittedString[index]},
             </Text>
 
           })}
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
             {splittedString[0]}, {splittedString[1]},
           </Text>
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
             {splittedString.slice(2, splittedString.length - 1)},
           </Text>
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11 }}>
             {splittedString[splittedString.length - 1]}
           </Text>
 
-          <Text style={{ fontFamily: 'Times-Roman', fontSize: 10, marginTop: 30 }}>
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 40 }}>
             Dear sir,
           </Text>
 
-          <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, marginTop: 10, textTransform: 'uppercase', textAlign: 'left' }}>
-            Quotation of {props.formikProps.values.workType === 'EIA' && 'Environmental Impact assesment'} ({props.formikProps.values.workType}) FOR Proposed {props.formikProps.values.name} at {props.formikProps.values.address1 + ', '} 
-            {props.formikProps.values.address2 ? props.formikProps.values.address2 + ', ' : ''  }
-            {props.formikProps.values.address3 ? props.formikProps.values.address3 + ', ': '' } 
-            {props.formikProps.values.zip}, {' ' +props.formikProps.values.city}, {' ' +props.formikProps.values.state}.
+          <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, marginTop: 20, paddingBottom: 5, textTransform: 'uppercase', textAlign: 'left', borderBottom: 1 }}>
+            Quotation of {props.formikProps.values.workType === 'EIA' && 'Environmental Impact assesment'} ({props.formikProps.values.workType}) FOR Proposed {props.formikProps.values.name} at {props.formikProps.values.address1 + ', '}
+            {props.formikProps.values.address2 ? props.formikProps.values.address2 + ', ' : ''}
+            {props.formikProps.values.address3 ? props.formikProps.values.address3 + ', ' : ''}
+            {props.formikProps.values.zip}, {' ' + props.formikProps.values.city}, {' ' + props.formikProps.values.state}.
           </Text>
 
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 10, textAlign: 'left' }}>
+            Thank you for your enquiry pertaining to the above mentioned. We have pleasure to submit herewith our quotation for your kind perusal.
+          </Text>
+
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 12, textAlign: 'left' }}>
+            We do hope that our quotation as well as consultant fee will meet your requirement and hope you will consider in giving us opportunity working together with you.
+            <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, textAlign: 'left' }}>
+              We will consider being appointed once we received both official appointment letter as well as first {props.formikProps.values.payment_term[0].percentage}% payment from you.
+            </Text>
+          </Text>
+
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 12, textAlign: 'left' }}>
+            We hope our quotation satisfies your requirement and meet your kind of approval. Should you need further clarification or information, please do not hesitate to contact us.
+          </Text>
+
+          <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 12, textAlign: 'left' }}>
+            Thank You,
+          </Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+
+            <View style={{ display: 'flex', flexDirection: 'column' }}>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, marginTop: 40, textAlign: 'left' }}>
+                Yours Sincerely,
+              </Text>
+              <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, marginTop: 40, textAlign: 'left', textTransform: 'uppercase' }}>
+                AZNI MASTURAH BINTI MOHD NOUR AZLAN
+              </Text>
+
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, textAlign: 'left', marginTop: 2 }}>
+                Environmental Manager/ EIA Consultant
+              </Text>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, textAlign: 'left', marginTop: 1 }}>
+                DOE Reg: CEP-C0278
+              </Text>
+              <Text style={{ fontFamily: 'Times-Roman', fontSize: 11, textAlign: 'left', marginTop: 1 }}>
+                H/P: 014-8334224
+              </Text>
+            </View>
+
+
+            <View style={{ display: 'flex', flexDirection: 'column', border: 1, padding: 10, marginLeft: 40, width: 250 }}>
+              <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, marginTop: 10, textAlign: 'left' }}>
+                Acceptance of Quotation
+              </Text>
+              <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, textAlign: 'left', marginTop: 2 }}>
+                (Please Return Back)
+              </Text>
+
+              <Text style={{ fontFamily: 'Times-Italic', fontSize: 11, textAlign: 'left', marginTop: 2 }}>
+                I am pleased to receive your offer and accept your quotation.
+              </Text>
+
+
+              <Text style={{ fontSize: 11, textAlign: 'left', marginTop: 45 }}>
+                .................................................................
+              </Text>
+              <Text style={{ fontFamily: 'Times-Italic', fontSize: 11, textAlign: 'left', marginTop: 2 }}>
+                Name:
+              </Text>
+              <Text style={{ fontFamily: 'Times-Italic', fontSize: 11, textAlign: 'left', marginTop: 2 }}>
+                Designation:
+              </Text>
+
+            </View>
+          </View>
         </View>
 
       </Page>
 
       <Page style={styles.page} size='A4'>
         <View style={styles.table}>
-          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, fontFamily: 'Times-Bold' }}>
             Table 1.0: Proposed Fee for Preparing the {props.formikProps.values.workType}
           </Text>
           <View style={[styles.row]}>
             <Text
-              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0, fontFamily: 'Times-Bold' }]}
             >
               #
             </Text>
@@ -1605,23 +1671,23 @@ const MyDocument = (props: any) => {
               style={[
                 styles.headerText,
                 styles.cell,
-                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
+                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%', fontFamily: 'Times-Bold' },
               ]}
             >
               Description
             </Text>
-            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0, fontFamily: 'Times-Bold' }]}>
               Amount (RM)
             </Text>
           </View>
           <Proposed props={props} />
 
-          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, marginTop: 50 }}>
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, marginTop: 50, fontFamily: 'Times-Bold' }}>
             Table 2.0: Schedule of Payment for Preparing the {props.formikProps.values.workType}
           </Text>
           <View style={[styles.row]}>
             <Text
-              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0, fontFamily: 'Times-Bold' }]}
             >
               #
             </Text>
@@ -1629,12 +1695,12 @@ const MyDocument = (props: any) => {
               style={[
                 styles.headerText,
                 styles.cell,
-                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%' },
+                { width: '70%', borderRight: 0, borderBottom: 0, paddingLeft: '7%', fontFamily: 'Times-Bold' },
               ]}
             >
               Term of Payment
             </Text>
-            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0, fontFamily: 'Times-Bold' }]}>
               Amount (RM)
             </Text>
           </View>
@@ -1664,12 +1730,12 @@ const MyDocument = (props: any) => {
 
       <Page style={styles.page} size='A4'>
         <View style={styles.table}>
-          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15 }}>
+          <Text style={{ fontSize: 11, fontWeight: 1000, marginBottom: 15, fontFamily: 'Times-Bold' }}>
             Table 3.0: Proposed Project Schedule
           </Text>
           <View style={[styles.row]}>
             <Text
-              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0 }]}
+              style={[styles.headerText, styles.cell, { width: '5%', borderRight: 0, borderBottom: 0, fontFamily: 'Times-Bold' }]}
             >
               #
             </Text>
@@ -1677,7 +1743,7 @@ const MyDocument = (props: any) => {
               style={[
                 styles.headerText,
                 styles.cell,
-                { width: '55%', borderRight: 0, borderBottom: 0 },
+                { width: '55%', borderRight: 0, borderBottom: 0, fontFamily: 'Times-Bold' },
               ]}
             >
               Description
@@ -1686,12 +1752,12 @@ const MyDocument = (props: any) => {
               style={[
                 styles.headerText,
                 styles.cell,
-                { width: '15%', borderRight: 0, borderBottom: 0 },
+                { width: '15%', borderRight: 0, borderBottom: 0, fontFamily: 'Times-Bold' },
               ]}
             >
               Week No
             </Text>
-            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0 }]}>
+            <Text style={[styles.headerText, styles.cell, { width: '25%', borderBottom: 0, fontFamily: 'Times-Bold' }]}>
               Remarks
             </Text>
           </View>
